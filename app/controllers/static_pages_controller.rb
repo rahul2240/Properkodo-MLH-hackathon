@@ -6,6 +6,7 @@ require 'nokogiri'
 require 'rest-client'
 
   def home
+=begin
     @username = params[:username]
         if @username
             @data = HTTParty.get('https://api.github.com/users/'+ @username)
@@ -28,18 +29,20 @@ require 'rest-client'
              a+=1
            end
          end
-         @codechef = Nokogiri::HTML(RestClient.get("https://www.codechef.com/users/rahul2240"))
-         @d=Array.new
-         i=0
-         @codechef.xpath("//div[@class='content']/h5").each do |x|
-          a = x.text.split(" ")
-           a[2].slice! "("
-           a[2].slice! ")"
-           @d[i] = a[2].to_i
-           i+=1
-         end
+=end
 
+             @codechef = Nokogiri::HTML(RestClient.get("https://www.codechef.com/users/rahul2240"))
+             @d=Array.new
+             i_count=0
+             @codechef.xpath("//div[@class='content']/h5").each do |x|
+              aword = x.text.split(" ")
+               aword[2].slice! "("
+               aword[2].slice! ")"
+               @d[i_count] = aword[2].to_i
+               i_count+=1
+             end
 
+             @codeforce = HTTParty.get("http://codeforces.com/api/user.info?handles=DmitriyH")
 
        end
 
