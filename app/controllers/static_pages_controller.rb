@@ -10,7 +10,7 @@ require 'rest-client'
   def home
 
 # Github Api fetching
-=begin
+
     @username = params[:username]
         if @username
             @data = HTTParty.get('https://api.github.com/users/'+ @username)
@@ -33,7 +33,7 @@ require 'rest-client'
              a+=1
            end
          end
-=end
+
 
 # Codechef Data scraping
 
