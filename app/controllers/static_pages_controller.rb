@@ -12,7 +12,7 @@ require 'rest-client'
 # Github Api fetching
 
     @username = params[:username]
-        if @username
+        if @username && @username!=''
             @data = HTTParty.get('https://api.github.com/users/'+ @username)
             @language = Hash.new(0)
             a = 1
@@ -38,7 +38,7 @@ require 'rest-client'
 # Codechef Data scraping
 
              @chefname = params[:codechef]
-             if @chefname
+             if @chefname!='' && @chefname
                  @codechef = Nokogiri::HTML(RestClient.get("https://www.codechef.com/users/"+ @chefname))
                  @d=Array.new
                  i_count=0
@@ -63,7 +63,7 @@ require 'rest-client'
 #  Codeforces data fetch using API
 
             @forcename = params[:codeforce]
-            if @forcename
+            if @forcename!='' && @forcename
                 @codeforce = HTTParty.get("http://codeforces.com/api/user.info?handles="+ @forcename)
             end
 
