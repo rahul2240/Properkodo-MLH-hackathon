@@ -1,7 +1,15 @@
+
 <fieldset class="scheduler-border">
             <legend class="scheduler-border"><img src="/assets/Logo.png" width="100px" height="100px"></legend>
             <div class="my-overflow">
-                <div id="dis" style="display: none;">
+              <% if !@language %>
+              <%= form_tag root_path, method: 'GET' do %>
+                <%= text_field_tag :username, params[:username] %>
+                <%= submit_tag 'Search', name: nil %>
+              <% end %>
+              <% end %>
+              <% if @language %>
+                <div id="dis" style="display: block;">
                     <div class="row alignment">
                         <div class="col-lg-3 col-sm-3 ">
                             <h2>ABOUT</h2>
@@ -16,32 +24,40 @@
                             <h3 class="margin-data">BIO:</h3>
                         </div>
                         <div class="col-lg-4 col-sm-2 ">
-                            <h3 class=" margin-data" id="name"></h3>
-                            <h3 class=" margin-data"  id="user"></h3>
-                            <h3 class=" margin-data"  id="location"></h3>
-                            <h3 class="  margin-data"  id="bio"></h3>
+                            <h3 class=" margin-data" id="name"><%= @data['name'] %></h3>
+                            <h3 class=" margin-data"  id="user"><%= @data['login'] %></h3>
+                            <h3 class=" margin-data"  id="location"><%= @data['location'] %></h3>
+                            <h3 class="  margin-data"  id="bio"><%= @data['bio'] %></h3>
 
                         </div>
 
                         <div  class="col-lg-3 col-md-offset-2 ">
                             <div align="center">
-                                <img src=""  id="image" class="img-responsive img-circle" alt="">
+                                <img src="<%= @data['avatar_url'] %>"  height='50%' width='50%' id="image" class="img-responsive img-circle" alt="">
                                 <h3 class="name-up-2" id="name2"></h3>
                                 <h3 class="name-up" id="loc"></h3>
                             </div>
 
                         </div>
                     </div>
+                    <% if @language %>
                     <div class="pie text-center"><h2>Language Used</h2>
                         <div align="center">
-                            <img src="/assets/pie.png" id="pie" class="img-responsive ">
+                            <%= pie_chart @language.map { |k, v| [k, v] }.to_h%>
                         </div>
                     </div>
+                    <% end %>
+                                  <%= column_chart [['Fully solved',@d[0]],['Partially Solved', @d[1]]]  %>
+                          <img src="http://ghchart.rshah.org/<%= @username %>" alt="Github chart"  />
 
                 </div>
             </div>
+
+
         </fieldset>
-        <p>Type your git username in the text field: </p>
-        <input type="text" id="username">
-        <button onclick="load()">Submit</button>
-    </div>
+
+
+
+
+
+<% end %>
