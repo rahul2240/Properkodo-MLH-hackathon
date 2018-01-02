@@ -28,7 +28,18 @@ require 'rest-client'
              a+=1
            end
          end
-         
+         @codechef = Nokogiri::HTML(RestClient.get("https://www.codechef.com/users/rahul2240"))
+         @d=Array.new
+         i=0
+         @codechef.xpath("//div[@class='content']/h5").each do |x|
+          a = x.text.split(" ")
+           a[2].slice! "("
+           a[2].slice! ")"
+           @d[i] = a[2].to_i
+           i+=1
+         end
+
+
 
        end
 
