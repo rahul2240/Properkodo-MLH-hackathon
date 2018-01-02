@@ -1,5 +1,7 @@
 class StaticPagesController < ApplicationController
 
+before_action :authenticate_user!
+
 include HTTParty
 require 'rubygems'
 require 'nokogiri'

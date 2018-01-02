@@ -68,7 +68,7 @@
 
 
 
-                <% if @forcename %>
+                <% if @forcename && @codeforce %>
                   <% if @codeforce['result'][0]['contribution'] %>
                     <%= bar_chart [['Contribution',@codeforce['result'][0]['contribution']],['Rating',@codeforce['result'][0]['rating']],['HighestRating',@codeforce['result'][0]['maxRating']]]  %>
                   <% end %>
