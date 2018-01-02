@@ -31,7 +31,9 @@ require 'rest-client'
          end
 =end
 
-             @codechef = Nokogiri::HTML(RestClient.get("https://www.codechef.com/users/rahul2240"))
+             @chefname = params[:codechef]
+             if @chefname
+             @codechef = Nokogiri::HTML(RestClient.get("https://www.codechef.com/users/"+ @chefname))
              @d=Array.new
              i_count=0
              @codechef.xpath("//div[@class='content']/h5").each do |x|
@@ -41,8 +43,12 @@ require 'rest-client'
                @d[i_count] = aword[2].to_i
                i_count+=1
              end
+           end
 
-             @codeforce = HTTParty.get("http://codeforces.com/api/user.info?handles=DmitriyH")
+            @forcename = params[:codeforce]
+            if @forcename
+                @codeforce = HTTParty.get("http://codeforces.com/api/user.info?handles="+ @forcename)
+            end
 
        end
 
