@@ -6,6 +6,8 @@ require 'nokogiri'
 require 'rest-client'
 
   def home
+
+# Github Api fetching
 =begin
     @username = params[:username]
         if @username
@@ -31,26 +33,37 @@ require 'rest-client'
          end
 =end
 
+# Codechef Data scraping
+
              @chefname = params[:codechef]
              if @chefname
-             @codechef = Nokogiri::HTML(RestClient.get("https://www.codechef.com/users/"+ @chefname))
-             @d=Array.new
-             i_count=0
-             @codechef.xpath("//div[@class='content']/h5").each do |x|
-              aword = x.text.split(" ")
-               aword[2].slice! "("
-               aword[2].slice! ")"
-               @d[i_count] = aword[2].to_i
-               i_count+=1
+                 @codechef = Nokogiri::HTML(RestClient.get("https://www.codechef.com/users/"+ @chefname))
+                 @d=Array.new
+                 i_count=0
+                 @codechef.xpath("//div[@class='content']/h5").each do |x|
+                  aword = x.text.split(" ")
+                   aword[2].slice! "("
+                   aword[2].slice! ")"
+                   @d[i_count] = aword[2].to_i
+                   i_count+=1
+                 end
+                # CODECHEF RATING
+                 @codechef.xpath("//div[@class='rating-number']").each do |x|
+                    @current_codechef_rating = x.text.to_i
+                 end
+                 @codechef.xpath("//div[@class='rating-header text-center']/small").each do |x|
+                    @splitrating = x.text.split(" ")
+                     @splitrating[2].slice! ")"
+                    @highest_codechef_rating = @splitrating[2].to_i
+                 end
              end
-           end
+
+#  Codeforces data fetch using API
 
             @forcename = params[:codeforce]
             if @forcename
                 @codeforce = HTTParty.get("http://codeforces.com/api/user.info?handles="+ @forcename)
             end
 
-       end
-
-
-end
+    end
+  end
