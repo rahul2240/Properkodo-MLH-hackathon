@@ -6,7 +6,7 @@ include HTTParty
 require 'rubygems'
 require 'nokogiri'
 require 'rest-client'
-
+HTTParty::Basement.default_options.update(verify: false)
   def home
 
 # Github Api fetching
