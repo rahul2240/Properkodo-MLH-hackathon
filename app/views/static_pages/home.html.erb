@@ -10,8 +10,8 @@
           <%= text_field_tag :codeforce, params[:codeforce], placeholder: 'Codeforce Username' %>
           <%= submit_tag 'Search', name: nil %>
         <% end %>
-    
 
+        <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
     <% if @language && @username && @username!='' %>
       <div id="dis" style="display: block;">
 
