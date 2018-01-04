@@ -93,4 +93,6 @@ HTTParty::Basement.default_options.update(verify: false)
             end
 
     end
+    def about
+    end
   end

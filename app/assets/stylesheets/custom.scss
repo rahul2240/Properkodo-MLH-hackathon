@@ -224,3 +224,66 @@ border: solid rgb(0,255,127);
 color: #fff;
 margin-right: 20px;
 }
+
+.para-about{
+  font-family: arial;
+}
+.git-button{
+
+background-color:  rgba(0,255,127,0.7);
+border: solid rgb(0,255,127);
+
+margin-right: 20px;
+}
+.about-border{
+  border: solid;
+  border-width: 2px;
+  border-color: #00FF7F;
+
+}
+a
+{
+  color: white;
+}
+
+.git-button:hover {
+  background-color: #00FF7F !important;
+  border-color: #00FF7F !important;
+  
+}
+.git-button:active:focus {
+  
+  background-color: #00FF7F !important;
+  border-color: #00FF7F !important;
+    
+  
+}
+.git-button:visited{
+background-color: #00FF7F  !important;
+border-color: #00FF7F !important;
+    
+    
+
+}
+
+.git-button:active{
+  background-color: #00FF7F !important;
+    border-color: #00FF7F !important;
+    
+}
+.love-text{
+  margin-right: 15px;
+  margin-bottom: 5px;
+  float: right;
+}
+.submit-button-2{
+
+background-color:  rgba(0,255,127,0.7);
+border: solid rgb(0,255,127);
+color: #fff;
+width:200px;
+font-size:20px;
+}
+.input-lg{
+  border-radius:none !important;
+}
