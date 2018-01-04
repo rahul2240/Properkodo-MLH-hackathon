@@ -210,3 +210,17 @@ background-color:  rgb(6, 23, 25 );
 .margin-left-20{
   margin-right:20px;
 }
+@media print {
+.my-overflow{
+    overflow-y: auto;
+    max-height: max-content;
+}
+
+}
+.submit-button{
+float: right;
+background-color:  rgba(0,255,127,0.7);
+border: solid rgb(0,255,127);
+color: #fff;
+margin-right: 20px;
+}

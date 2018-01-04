@@ -1,11 +1,17 @@
 <fieldset class="scheduler-border">
-  <legend class="scheduler-border"><img src="/assets/Logo.png" width="100px" height="100px"></legend>
+  <legend class="scheduler-border"><img src="/assets/logo_name_3.png" width="auto" height="100px"></legend>
   <div class="my-overflow">
-    <%= form_tag home_path, method: 'GET' do %>
-    <%= text_field_tag :username, params[:username], placeholder: 'Github Username', style: "color: black" %>
-    <%= text_field_tag :codechef, params[:codechef], placeholder: 'Codechef Username', style: "color: black" %>
-    <%= text_field_tag :codeforce, params[:codeforce], placeholder: 'Codeforce Username', style: "color: black" %>
+    <%= form_tag root_path, method: 'GET' do %>
+    <%= text_field_tag :username, params[:username], placeholder: 'Github Username',value: '', style: "color: black" %>
+    <%= text_field_tag :codechef, params[:codechef], placeholder: 'Codechef Username',value: '', style: "color: black" %>
+    <%= text_field_tag :codeforce, params[:codeforce], placeholder: 'Codeforce Username', value: '',style: "color: black" %>
+    <%= text_field_tag :hackerrank, params[:hackerrank], placeholder: 'Hackerrank Username',value: '', style: "color: black" %>
+    <%= text_field_tag :hackerearth, params[:hackerearth], placeholder: 'Hackerearth Username',value: '', style: "color: black" %>
+
     <%= submit_tag 'Search', name: nil, class: 'btn btn-primary btn-sm' %>
+    <% end %>
+    <% if (@username && @username!='') || (@chefname && @chefname!='')  || (@forcename && @forcename!='') || (@hackerrankname && @hackerrankname!='') || (@hackerearthname && @hackerearthname!='')  %>
+    <button id="print" class="btn submit-button ">Print</button>
     <% end %>
     <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn submit-button margin-left-20' %>
     <% if @language && @username && @username!='' %>
@@ -44,7 +50,7 @@
       <h1 class="text-center heading">GITHUB</h1>
 
       <div class="alignment row">
-        <div class=" col-lg-6">
+        <div class=" col-lg-8">
           <h2 class="text-center">Progress Report</h2>
           <br><br><br>
           <div align="center">
@@ -53,7 +59,7 @@
         </div>
         <% end %>
         <% if @language %>
-        <div class=" col-lg-6">
+        <div class=" col-lg-4">
           <div  class="pie text-center"><h2>Language Used</h2>
           </div>
           <div  align="center">
@@ -102,6 +108,42 @@
           </div>
           <% end %>
           <% end %>
+          <br>
+          <% if @hackerrankname!='' && @hackerrankname && @bl[0] && @bl[1] %>
+          <hr width="70%">
+          <h1 class="text-center heading">HACKERRANK</h1>
+          <div class="row">
+            <div class="col-lg-12">
+              <h2 class="text-center">ACHIEVEMENTS</h2>
+              <br>
+              <%= column_chart [['Gold',@bl[0]],['Silver', @bl[1]],['Bronze',@bl[2]]],colors: ["#00FF7F"], library: {chart: {backgroundColor: "rgb(6, 23, 25 )"}}  %>
+
+              </div>
+            </div>
+          <% end %>
+          <br>
+          <% if @hackerearthname!='' && @hackerearthname && @bla %>
+          <hr width="70%">
+          <h1 class="text-center heading">HACKEREARTH</h1>
+          <div class="row">
+            <div class="col-lg-12">
+              <h2 class="text-center">RATING</h2>
+              <br>
+              <%= column_chart [['Rating',@bla],['Max',2500]],colors: ["#00FF7F"], library: {chart: {backgroundColor: "rgb(6, 23, 25 )"}}  %>
+
+              </div>
+            </div>
+
+          <% end %>
+
+
     </div>
   </div>
 </fieldset>
+
+<script>
+document.getElementById("print").addEventListener("click", one);
+function one() {
+  print();
+    }
+</script>
