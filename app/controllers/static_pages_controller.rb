@@ -1,6 +1,6 @@
 class StaticPagesController < ApplicationController
 
-before_action :authenticate_user!
+
 
 include HTTParty
 require 'rubygems'
@@ -65,6 +65,31 @@ HTTParty::Basement.default_options.update(verify: false)
             @forcename = params[:codeforce]
             if @forcename!='' && @forcename
                 @codeforce = HTTParty.get("http://codeforces.com/api/user.info?handles="+ @forcename)
+            end
+
+
+            # hackerrank data
+
+            @hackerrankname = params[:hackerrank]
+            if @hackerrankname!='' && @hackerrankname
+                @hackerrank = Nokogiri::HTML(RestClient.get("https://www.hackerrank.com/"+@hackerrankname+"?hr_r=1"))
+                @bl = Array.new
+                i=0
+                 @hackerrank.xpath("//div[@class='bold mlB']/span").each do |x|
+                  @bl[i] = x.text
+                  i+=1
+                end
+            end
+
+            @hackerearthname = params[:hackerearth]
+            if @hackerearthname!='' && @hackerearthname
+                @hackerearth = Nokogiri::HTML(RestClient.get("https://www.hackerearth.com/@"+ @hackerearthname))
+                @hackerearthproblem = Nokogiri::HTML(RestClient.get("https://www.hackerearth.com/@"+@hackerearthname+"/activity/hackerearth/#user-rating-graph"))
+
+                @hackerearth.xpath("//div/span[@class='track-following-num']/a").each do |x|
+                  @bla = x.text.to_i
+                  end
+
             end
 
     end
