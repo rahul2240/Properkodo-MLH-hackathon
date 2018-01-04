@@ -1,19 +1,37 @@
 <fieldset class="scheduler-border">
-  <legend class="scheduler-border"><img src="/assets/logo_name_3.png" width="auto" height="100px"></legend>
+  <legend class="scheduler-border"><%= link_to about_path do %>
+   <%= image_tag "/assets/logo_name_3.png", width:'auto', height:'100px' %>
+<% end %></legend>
   <div class="my-overflow">
-    <%= form_tag root_path, method: 'GET' do %>
-    <%= text_field_tag :username, params[:username], placeholder: 'Github Username',value: '', style: "color: black" %>
-    <%= text_field_tag :codechef, params[:codechef], placeholder: 'Codechef Username',value: '', style: "color: black" %>
-    <%= text_field_tag :codeforce, params[:codeforce], placeholder: 'Codeforce Username', value: '',style: "color: black" %>
-    <%= text_field_tag :hackerrank, params[:hackerrank], placeholder: 'Hackerrank Username',value: '', style: "color: black" %>
-    <%= text_field_tag :hackerearth, params[:hackerearth], placeholder: 'Hackerearth Username',value: '', style: "color: black" %>
+     <% if (@username && @username!='') || (@chefname && @chefname!='')  || (@forcename && @forcename!='') || (@hackerrankname && @hackerrankname!='') || (@hackerearthname && @hackerearthname!='')  %>
 
-    <%= submit_tag 'Search', name: nil, class: 'btn btn-primary btn-sm' %>
-    <% end %>
-    <% if (@username && @username!='') || (@chefname && @chefname!='')  || (@forcename && @forcename!='') || (@hackerrankname && @hackerrankname!='') || (@hackerearthname && @hackerearthname!='')  %>
     <button id="print" class="btn submit-button ">Print</button>
-    <% end %>
+     <% end %>
+    <div class="text-center">
     <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn submit-button margin-left-20' %>
+    <br><br><br>
+    <%= form_tag root_path, method: 'GET' do %>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <%= text_field_tag :username, params[:username], placeholder: 'Github Username',value: '', style: "  color: black", class:' para-about input-lg' %>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+  
+    <%= text_field_tag :codechef, params[:codechef], placeholder: 'Codechef Username',value: '', style: " color: black", class:'input-lg para-about' %>
+   &nbsp;&nbsp;&nbsp;&nbsp;
+    <%= text_field_tag :codeforce, params[:codeforce], placeholder: 'Codeforce Username', value: '',style: "color: black",class:' para-about input-lg' %>
+   &nbsp;&nbsp;&nbsp;&nbsp;
+    <%= text_field_tag :hackerrank, params[:hackerrank], placeholder: 'Hackerrank Username',value: '', style: "color: black",class:' para-about input-lg' %>
+   &nbsp;&nbsp;&nbsp;&nbsp;
+    <%= text_field_tag :hackerearth, params[:hackerearth], placeholder: 'Hackerearth Username',value: '', style: "color: black",class:'para-about input-lg' %>
+  </div>
+  <p></p>
+  <p></p>
+<div class="text-center">
+    <%= submit_tag 'Search', name: nil, class: '  btn btn-lg submit-button-2 ' %>
+  </div>
+    <% end %>
+   
+    
+    
     <% if @language && @username && @username!='' %>
     <div id="dis" style="display: block;">
       <div class="row alignment">
