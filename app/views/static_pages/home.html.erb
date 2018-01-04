@@ -1,83 +1,107 @@
 <fieldset class="scheduler-border">
   <legend class="scheduler-border"><img src="/assets/Logo.png" width="100px" height="100px"></legend>
-    <div class="my-overflow">
-
-
-
-        <%= form_tag home_path, method: 'GET' do %>
-          <%= text_field_tag :username, params[:username], placeholder: 'Github Username' %>
-          <%= text_field_tag :codechef, params[:codechef], placeholder: 'Codechef Username' %>
-          <%= text_field_tag :codeforce, params[:codeforce], placeholder: 'Codeforce Username' %>
-          <%= submit_tag 'Search', name: nil %>
-        <% end %>
-
-        <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
+  <div class="my-overflow">
+    <%= form_tag home_path, method: 'GET' do %>
+    <%= text_field_tag :username, params[:username], placeholder: 'Github Username', style: "color: black" %>
+    <%= text_field_tag :codechef, params[:codechef], placeholder: 'Codechef Username', style: "color: black" %>
+    <%= text_field_tag :codeforce, params[:codeforce], placeholder: 'Codeforce Username', style: "color: black" %>
+    <%= submit_tag 'Search', name: nil, class: 'btn btn-primary btn-sm' %>
+    <% end %>
+    <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn submit-button margin-left-20' %>
     <% if @language && @username && @username!='' %>
-      <div id="dis" style="display: block;">
-
-          <div class="row alignment">
-              <div class="col-lg-3 col-sm-3 ">
-                      <h2 class="heading">ABOUT</h2>
-                  <br>
-              </div>
+    <div id="dis" style="display: block;">
+      <div class="row alignment">
+        <div class="col-lg-3 col-sm-3 ">
+          <h2 class="heading">ABOUT</h2>
+          <br>
+        </div>
+      </div>
+      <div class="row alignment">
+        <div class="col-lg-2 col-sm-2 ">
+          <h3 class="margin-data">NAME:</h3>
+          <h3 class="margin-data">USERNAME:</h3>
+          <h3 class="margin-data">LOCATION:</h3>
+          <h3 class="margin-data">BIO:</h3>
+        </div>
+        <div class="col-lg-4 col-sm-2 ">
+          <h3 class=" margin-data" id="name"><%= @data['name'] %></h3>
+          <h3 class=" margin-data"  id="user"><%= @data['login'] %></h3>
+          <h3 class=" margin-data"  id="location"><%= @data['location'] %></h3>
+          <h3 class="  margin-data"  id="bio"><%= @data['bio'] %></h3>
+        </div>
+        <div  class="col-lg-3 col-md-offset-2 ">
+          <div align="center">
+            <img src="<%= @data['avatar_url'] %>"  height='50%' width='50%' id="image" class="img-responsive img-circle" alt="">
+            <h3 class="name-up-2" id="name2"><%= @data['name'] %></h3>
+            <h3 class="name-up" id="loc"><%= @data['location'] %></h3>
           </div>
+        </div>
+      </div>
 
-          <div class="row alignment">
 
-              <div class="col-lg-2 col-sm-2 ">
-                  <h3 class="margin-data">NAME:</h3>
-                  <h3 class="margin-data">USERNAME:</h3>
-                  <h3 class="margin-data">LOCATION:</h3>
-                  <h3 class="margin-data">BIO:</h3>
-              </div>
+      <br><br>
+      <hr width="70%">
+      <h1 class="text-center heading">GITHUB</h1>
 
-              <div class="col-lg-4 col-sm-2 ">
-                  <h3 class=" margin-data" id="name"><%= @data['name'] %></h3>
-                  <h3 class=" margin-data"  id="user"><%= @data['login'] %></h3>
-                  <h3 class=" margin-data"  id="location"><%= @data['location'] %></h3>
-                  <h3 class="  margin-data"  id="bio"><%= @data['bio'] %></h3>
-              </div>
-
-              <div  class="col-lg-3 col-md-offset-2 ">
-                  <div align="center">
-                      <img src="<%= @data['avatar_url'] %>"  height='50%' width='50%' id="image" class="img-responsive img-circle" alt="">
-                      <h3 class="name-up-2" id="name2"></h3>
-                      <h3 class="name-up" id="loc"></h3>
-                  </div>
-              </div>
-
+      <div class="alignment row">
+        <div class=" col-lg-6">
+          <h2 class="text-center">Progress Report</h2>
+          <br><br><br>
+          <div align="center">
+            <img src="http://ghchart.rshah.org/<%= @username %>" alt="Github chart" style="background-color: rgb(6, 23, 25 );"  />
           </div>
-
-          <img src="http://ghchart.rshah.org/<%= @username %>" alt="Github chart"  />
-
+        </div>
         <% end %>
+        <% if @language %>
+        <div class=" col-lg-6">
+          <div  class="pie text-center"><h2>Language Used</h2>
+          </div>
+          <div  align="center">
+            <%= pie_chart @language.map { |k, v| [k, v] }.to_h,  library: {chart: {backgroundColor: "rgb(6, 23, 25 )"}} %>
+          </div>
+        </div>
+      </div>
 
-          <% if @language %>
-            <div class="pie text-center"><h2>Language Used</h2>
-                <div align="center">
-                    <%= pie_chart @language.map { |k, v| [k, v] }.to_h%>
-                </div>
+      <br><br>
+
+          <% end %>
+          <% if @chefname!='' && @chefname %>
+          <% if @d[0] %>
+           <hr width="70%">
+      <h1 class="text-center heading">CODECHEF</h1>
+      <div class="row">
+        <div class="col-lg-12">
+          <h2 class="text-center">QUESTIONS SOLVED</h2>
+          <br>
+          <%= column_chart [['Fully solved',@d[0]],['Partially Solved', @d[1]]], colors: ["#00FF7F"], library: {chart: {backgroundColor: "rgb(6, 23, 25 )"}}  %>
+          <% end %>
+          <% end %>
+        </div>
+      </div>
+      <br><br>
+          <% if @chefname!='' && @chefname %>
+          <div class="row">
+            <div class="col-lg-12">
+              <h2 class="text-center">RANKINGS</h2>
+              <br>
+          <%= column_chart [['Current Rating',@current_codechef_rating],['Highest Rating', @highest_codechef_rating],['Maximum Rating',3000]],colors: ["#00FF7F"], library: {chart: {backgroundColor: "rgb(6, 23, 25 )"}}  %>
+              </div>
             </div>
           <% end %>
 
-                <% if @chefname!='' && @chefname %>
-                  <% if @d[0] %>
-                    <%= column_chart [['Fully solved',@d[0]],['Partially Solved', @d[1]]]  %>
-                  <% end %>
-                <% end %>
+          <% if @forcename!='' && @forcename && @codeforce %>
+          <% if @codeforce['result'][0]['contribution'] %>
+          <hr width="70%">
+          <h1 class="text-center heading">CODEFORCE</h1>
+          <div class="row">
+            <div class="col-lg-12">
 
-
-
-                <% if @forcename!='' && @forcename && @codeforce %>
-                  <% if @codeforce['result'][0]['contribution'] %>
-                    <%= bar_chart [['Contribution',@codeforce['result'][0]['contribution']],['Rating',@codeforce['result'][0]['rating']],['HighestRating',@codeforce['result'][0]['maxRating']]]  %>
-                  <% end %>
-                <% end %>
-
-                <% if @chefname!='' && @chefname %>
-                    <%= column_chart [['Current Rating',@current_codechef_rating],['Highest Rating', @highest_codechef_rating],['Maximum Rating',3000]]  %>
-                <% end %>
-
-        </div>
-      </div>
-  </fieldset>
+              <h2 class="text-center">CONTRIBUTIONS AND RATING</h2>
+              <%= bar_chart [['Contribution',@codeforce['result'][0]['contribution']],['Rating',@codeforce['result'][0]['rating']],['HighestRating',@codeforce['result'][0]['maxRating']]],colors: ["#00FF7F"], library: {chart: {backgroundColor: "rgb(6, 23, 25 )"}}   %>
+            </div>
+          </div>
+          <% end %>
+          <% end %>
+    </div>
+  </div>
+</fieldset>
